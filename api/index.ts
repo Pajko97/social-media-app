@@ -74,7 +74,7 @@ passport.use(
       clientSecret: 'your-google-client-secret',
       callbackURL: 'your-google-callback-url',
     },
-    async (accessToken: String, refreshToken: String, profile: Object, done: Function) => {
+    async (accessToken: String, refreshToken: String, profile: GoogleProfile, done: Function) => {
       try {
         // Check if user exists in the database
         let user = await prisma.user.findUnique({
@@ -102,12 +102,13 @@ passport.use(
 interface CustomResponseType {
   message: string;
 }
+
 // Define routes for login and logout
-app.post('/login', passport.authenticate('local'), (req: Request, res: CustomResponseType) => {
+app.post('/login', passport.authenticate('local'), (req: Request, res: any ) => {
   res.json({ message: 'Login successful.' });
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', (req: any, res: any) => {
   req.logout();
   res.json({ message: 'Logout successful.' });
 });
@@ -116,7 +117,7 @@ app.get('/logout', (req, res) => {
 app.get('/auth/google', AuthController.AuthGoogle);
 
 // Define callback route for Google OAuth authentication
-app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
+app.get('/auth/google/callback', passport.authenticate('google'), (req: Request, res: any) => {
   res.redirect('/'); // Redirect to home page or any other desired URL
 });
 

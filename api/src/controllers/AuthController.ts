@@ -1,4 +1,4 @@
-const Register = async (req, res) => {
+const Register = async (req: any, res: any) => {
     
   const { username, password } = req.body;
 
