@@ -6,7 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
-
+const AuthController = require('./controllers/AuthController')
 // Create an instance of the Express app
 const app = express();
 
@@ -30,11 +30,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define passport serialization and deserialization functions
-passport.serializeUser((user: Object, done: Function) => {
+passport.serializeUser((user: PassportUserType, done: Function) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (id: String, done: Function) => {
   try {
     const user = await prisma.user.findUnique({ where: { id } });
     done(null, user);
