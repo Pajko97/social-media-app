@@ -10,43 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model users {
   id       Int     @id @default(autoincrement())
   username String  @unique
   email    String  @unique
   password String
   created_at DateTime @default(now())
-  posts    Post[]
-  likes    Like[]
-  comments Comment[]
+  posts    posts[]
+  likes    likes[]
+  comments comments[]
 }
 
-model Post {
+model posts {
   id         Int      @id @default(autoincrement())
   user_id    Int
   caption    String?
   image_url  String?
   created_at DateTime @default(now())
-  user       User     @relation(fields: [user_id], references: [id])
-  likes      Like[]
-  comments   Comment[]
+  user       users     @relation(fields: [user_id], references: [id])
+  likes      likes[]
+  comments   comments[]
 }
 
-model Like {
+model likes {
   id         Int      @id @default(autoincrement())
   user_id    Int
   post_id    Int
   created_at DateTime @default(now())
-  user       User     @relation(fields: [user_id], references: [id])
-  post       Post     @relation(fields: [post_id], references: [id])
+  user       users    @relation(fields: [user_id], references: [id])
+  post       posts     @relation(fields: [post_id], references: [id])
 }
 
-model Comment {
+model comments {
   id         Int      @id @default(autoincrement())
   user_id    Int
   post_id    Int
   text       String
   created_at DateTime @default(now())
-  user       User     @relation(fields: [user_id], references: [id])
-  post       Post     @relation(fields: [post_id], references: [id])
+  user       users     @relation(fields: [user_id], references: [id])
+  post       posts     @relation(fields: [post_id], references: [id])
 }
