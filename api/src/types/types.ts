@@ -25,3 +25,7 @@ interface GoogleProfile {
     emails:[{ value: string; }];
     id: string;
 }
+
+interface Post {
+    comments: string[]
+}
