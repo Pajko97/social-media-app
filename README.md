@@ -7,5 +7,5 @@ Some aspects of the app development are limited by the budget, so i tried to fin
 low budget.
 
 ## Technologies
-React.js, Node.js, PostgreSQL, Redis, Prisma, AWS S3, CSS Modules
+React.js, Node.js, TypeScript, PostgreSQL, Redis, Prisma, AWS S3, CSS Modules
 
